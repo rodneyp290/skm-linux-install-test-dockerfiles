@@ -16,13 +16,18 @@ RUN echo X11DisplayOffset 10 >> /etc/ssh/sshd_config
 RUN echo X11UseLocalhost yes >> /etc/ssh/sshd_config
 RUN ssh-keygen -A
 
-RUN useradd -m splashkit -p $(openssl passwd -1 skm)
+RUN useradd -m splashkit -p $(openssl passwd -1 kit)
 
 # bash <(curl -s https://raw.githubusercontent.com/splashkit/skm/master/install-scripts/skm-install.sh)
 RUN git clone https://github.com/rodneyp290/skm --branch enhance/linux-install-script --depth 1 /home/splashkit/.splashkit
-RUN chown -R splashkit /home/splashkit/.splashkit
+RUN chown -R splashkit:splashkit /home/splashkit/.splashkit
 
 RUN echo 'PATH=~/.splashkit/:$PATH' >> /home/splashkit/.bashrc
-RUN chown -R splashkit /home/splashkit/.bashrc
+RUN chown -R splashkit:splashkit /home/splashkit/.bashrc
+
+RUN su -c "/home/splashkit/.splashkit/skm linux install" splashkit
+RUN su -c "cd /home/splashkit && /home/splashkit/.splashkit/skm new c++" splashkit
+COPY program.cpp /home/splashkit/
+RUN chown -R splashkit:splashkit /home/splashkit/program.cpp
 
 CMD ["/bin/sshd", "-d"]

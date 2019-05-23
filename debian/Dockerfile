@@ -5,7 +5,7 @@ FROM debian
 RUN apt-get update 
 RUN apt-get upgrade -y
 # skm install / general script dependencies
-RUN apt-get install -y git gawk gcc curl clang cmake vim
+RUN apt-get install -y git gawk gcc g++ curl clang cmake vim
 # skm linux install dependencies 
 RUN apt-get install -y libpng-dev libcurl4-openssl-dev libsdl2-dev libsdl2-mixer-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-net-dev libsdl2-ttf-dev libmikmod-dev libncurses5-dev  libbz2-dev libflac-dev libvorbis-dev libwebp-dev libfreetype6-dev 
 
@@ -26,6 +26,10 @@ RUN chown -R splashkit /home/splashkit/.splashkit
 
 RUN echo 'PATH=~/.splashkit/:$PATH' >> /home/splashkit/.bashrc
 RUN chown -R splashkit /home/splashkit/.bashrc
+
+RUN su -c "/home/splashkit/.splashkit/skm linux install" splashkit
+RUN su -c "cd /home/splashkit && /home/splashkit/.splashkit/skm new c++" splashkit
+COPY program.cpp /home/splashkit
 
 RUN mkdir /run/sshd
 CMD ["/usr/sbin/sshd", "-d"]
