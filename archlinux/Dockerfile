@@ -3,9 +3,7 @@ FROM archlinux/base
 
 # skm install / general script dependencies
 RUN pacman -Syu --noconfirm 
-RUN pacman -S --noconfirm --needed git gawk which gcc clang cmake libpng sdl2 base-devel
-# skm linux install dependencies 
-RUN pacman -S --noconfirm --needed libpng sdl2 sdl2_mixer sdl2_gfx sdl2_image sdl2_net sdl2_ttf libmikmod
+RUN pacman -S --noconfirm --needed git gawk which gcc clang base-devel
 
 # Set up SSH / X11 forwarding
 RUN pacman -S --noconfirm --needed openssh xorg-xauth xorg-xhost xorg-xeyes

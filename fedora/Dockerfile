@@ -6,9 +6,7 @@ RUN dnf update -y
 RUN dnf upgrade -y
 # skm install / general script dependencies
 RUN dnf group install -y "Development Tools"
-RUN dnf install -y git gawk gcc curl clang cmake vim
-# skm linux install dependencies 
-RUN dnf install -y libpng-devel libcurl-devel SDL2-devel SDL2_mixer-devel SDL2_gfx-devel SDL2_image-devel SDL2_net-devel SDL2_ttf-devel libmikmod-devel ncurses-devel bzip2-devel flac-devel libvorbis-devel libwebp-devel freetype-devel 
+RUN dnf install -y git gawk gcc curl clang vim
 
 # Required at splashkit app run time 
 RUN dnf install -y mesa-dri-drivers
