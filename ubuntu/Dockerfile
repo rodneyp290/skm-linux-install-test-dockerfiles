@@ -5,7 +5,7 @@ FROM ubuntu
 RUN apt-get update 
 RUN apt-get upgrade -y
 # skm install / general script dependencies
-RUN apt-get install -y git gawk gcc curl clang vim sudo
+RUN apt-get install -y git gawk gcc g++ curl clang vim sudo
 
 # Set up SSH / X11 forwarding
 RUN apt-get install -y openssh-server xauth x11-xserver-utils x11-apps
