@@ -27,10 +27,12 @@ RUN chown -R splashkit /home/splashkit/.splashkit
 RUN echo 'PATH=~/.splashkit/:$PATH' >> /home/splashkit/.bashrc
 RUN chown -R splashkit /home/splashkit/.bashrc
 
-RUN su -c "/home/splashkit/.splashkit/skm linux install" splashkit
 RUN su -c "cd /home/splashkit && /home/splashkit/.splashkit/skm new c++" splashkit
-COPY program.cpp /home/splashkit/
-RUN chown -R splashkit:splashkit /home/splashkit/program.cpp
+COPY program.cpp /home/splashkit
+COPY install-n-test.sh /home/splashkit/
+RUN chown splashkit /home/splashkit/program.cpp
+RUN chown splashkit /home/splashkit/install-n-test.sh
+RUN chmod +x /home/splashkit/install-n-test.sh
 
 RUN mkdir /run/sshd
 CMD ["/usr/sbin/sshd", "-d"]
